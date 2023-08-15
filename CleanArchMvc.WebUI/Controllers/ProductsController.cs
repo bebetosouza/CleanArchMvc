@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CleanArchMvc.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,18 @@ namespace CleanArchMvc.WebUI.Controllers
 {
     public class ProductsController : Controller
     {
-        public IActionResult Index()
+        private IProductService _productService;
+
+        public ProductsController(IProductService productService)
         {
-            return View();
+            _productService = productService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var products = await _productService.GetProducts();
+            return View(products);
         }
     }
 }

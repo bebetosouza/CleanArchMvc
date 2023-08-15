@@ -21,6 +21,7 @@ namespace CleanArchMvc.Domain.Entities
         public Category(int id, string name)
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value.");
+            Id = id;
             ValidateDomain(name);
         }
 
@@ -30,7 +31,6 @@ namespace CleanArchMvc.Domain.Entities
         }
 
         public IEnumerable<Product> Products { get; set; }
-        //public object Products { get; set; }
 
         private void ValidateDomain(string name)
         {
