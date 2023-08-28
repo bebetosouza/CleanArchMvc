@@ -1,3 +1,4 @@
+using CleanArchMvc.Infra.IoC;
 using CleanArchMvc.Ioc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,7 @@ namespace CleanArchMvc.API
 
             //ativar autenticação e validar o token
             services.AddInfrastructureJWT(Configuration);
+            services.AddInfrastructureSwagger();
 
             services.AddControllers();
             
@@ -40,9 +42,10 @@ namespace CleanArchMvc.API
             }
 
             app.UseHttpsRedirection();
+            app.UseStatusCodePages();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
